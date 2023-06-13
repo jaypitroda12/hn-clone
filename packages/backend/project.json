@@ -14,7 +14,6 @@
         "outputPath": "dist/packages/backend",
         "main": "packages/backend/src/main.ts",
         "tsConfig": "packages/backend/tsconfig.app.json",
-        "assets": ["packages/backend/src/assets"],
         "isolatedConfig": true,
         "webpackConfig": "packages/backend/webpack.config.js"
       },

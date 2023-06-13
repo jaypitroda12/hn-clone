@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id       String    @id @default(uuid())
+  username String    @unique
+  password String
+  isSeller Boolean
+  catalogs Catalog[]
+  orders   Order[]
+  product  Product[]
+}
+
+model Catalog {
+  id       String    @id @default(uuid())
+  seller   User      @relation(fields: [sellerId], references: [id])
+  sellerId String    @unique
+  products Product[]
+}
+
+model Product {
+  id        String   @id @default(uuid())
+  name      String
+  price     Float
+  seller    User     @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  sellerId  String
+  catalog   Catalog? @relation(fields: [catalogId], references: [id], onDelete: Cascade)
+  catalogId String?
+  order     Order?   @relation(fields: [orderId], references: [id])
+  orderId   String?
+}
+
+model Order {
+  id       String    @id @default(uuid())
+  products Product[]
+  buyer    User      @relation(fields: [buyerId], references: [id])
+  buyerId  String
+}
