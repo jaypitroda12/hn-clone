@@ -2,7 +2,10 @@
   "name": "@hybr1d/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx run-many --parallel --targets=serve --projects=backend,frontend",
+    "postinstall": "npx prisma migrate dev"
+  },
   "private": true,
   "devDependencies": {
     "@nestjs/schematics": "^9.2.0",
